@@ -2,9 +2,18 @@
 #include "DrawableActor.h"
 #include "Engine/Engine.h"
 
-DrawableActor::DrawableActor(char image)
-	:Actor(), image(image)
+DrawableActor::DrawableActor(const char* image)
+	: Actor()/*, image(image)*/
 {
+	// 전달 받은 문자열 복사.
+	auto length = strlen(image) + 1;
+	this->image = new char[length];
+	strcpy_s(this->image, length, image);
+}
+
+DrawableActor::~DrawableActor()
+{
+	delete[] image;
 }
 
 void DrawableActor::Draw()
