@@ -21,10 +21,11 @@ Level::~Level()
 
 void Level::AddActor(Actor* newActor)
 {
-	actors.PushBack(newActor);
+	//actors.PushBack(newActor);
+	addRequestedActor = newActor;
 }
 
-void Level::DestroyActor()
+void Level::ProcessAddedAndDestroyedActor()
 {
 	//액터 순회 후 삭제 요청된 액터를 처리.
 	for (int i = 0; i < actors.Size();)
@@ -38,6 +39,13 @@ void Level::DestroyActor()
 		}
 
 		++i;
+	}
+
+	//추가 요청된 액터 처리.
+	if (addRequestedActor)
+	{
+		actors.PushBack(addRequestedActor);
+		addRequestedActor = nullptr;
 	}
 }
 
